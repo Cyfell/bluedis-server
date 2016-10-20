@@ -11,8 +11,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        afficheur.cpp
+        afficheur.cpp \
+    folderwatcher.cpp
 
-HEADERS  += afficheur.h
+HEADERS  += afficheur.h \
+    folderwatcher.h
 
 FORMS    += afficheur.ui

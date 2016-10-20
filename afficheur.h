@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
-#include <qfilesystemwatcher.h>
+#include <folderwatcher.h>
 
 
 namespace Ui {
@@ -16,33 +16,24 @@ class Afficheur : public QMainWindow
     
 public:
     explicit Afficheur(QWidget *parent = 0);
-    void LoadFirstImg();
-    void actualiseListFiles();
-    void InitiateDirectoryWatcher(QString watcher_path);
 
-
-    void watch_dir();
     ~Afficheur();
     
 public slots :
-      void print(QString str);
-      void actualiseImg();
+        void displayImg(QString img_name);
 
 signals:
       void file_found();
 
 private:
 
-    QString findNewFile(QStringList *newList);
-
-    QStringList *listFiles;
     Ui::Afficheur *ui;
     QGraphicsScene *scene;
     QPixmap image;
     QGraphicsPixmapItem *item;
-    QFileSystemWatcher *watcher;
-    bool control;
-    //Folder_watcher *folder_watcher;
+
+    const QString DEFAULT_IMAGE_DIR="content/";
+    FolderWatcher *dir_watcher;
 };
 
 #endif // AFFICHEUR_H
