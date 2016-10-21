@@ -13,11 +13,11 @@ FolderWatcher::FolderWatcher()
     this->ActualiseList();
 
 
-    const QString CONTENT_PATH = "content/";
+
     //create watcher
     watcher = new QFileSystemWatcher();
     // add path to watch
-    watcher->addPath(CONTENT_PATH);
+    watcher->addPath(DEFAULT_CONTENT_DIR);
     // Connect watcher
     QObject::connect(watcher,SIGNAL(directoryChanged(QString)),this, SLOT(onFileDetected()));
 
@@ -37,8 +37,12 @@ void FolderWatcher::onFileDetected(){
 //        emit pictureDetected(new_file);
         if(new_file.split(".").at(1)=="jpg" || new_file.split(".").at(1)=="png" ){
 
-            qDebug()<<"LLLLL"<<new_file;
+            qDebug()<<"image : "<<new_file;
             emit pictureDetected(new_file);
+        }if(new_file.split(".").at(1)=="wav"){
+
+            qDebug()<<"musique : "<<new_file;
+            emit musicDetected(new_file);
         }
     }
 
@@ -54,7 +58,7 @@ void FolderWatcher::ActualiseList(){
     DIR *dir;
     struct dirent *ent;
     listFiles->clear();
-    if ((dir = opendir ("/root/content")) != NULL) {
+    if ((dir = opendir (DEFAULT_CONTENT_DIR)) != NULL) {
 
       while ((ent = readdir (dir)) != NULL) {
           if(strcmp(ent->d_name,".") != 0 && strcmp(ent->d_name,"..") != 0){
@@ -82,7 +86,7 @@ QString FolderWatcher::findNewFile(QStringList *oldList){
     if(result != ""){
         foreach(QString file, *listFiles){
             if(result != file){
-                QString file_to_remove = "content/"+file;
+                QString file_to_remove = DEFAULT_CONTENT_DIR+file;
                 qDebug()<<"je supprime le fichier :"+file_to_remove;
                 remove(file_to_remove.toAscii());
             }

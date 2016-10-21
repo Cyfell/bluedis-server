@@ -4,7 +4,17 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <folderwatcher.h>
+#include "ui_afficheur.h"
+#include <qdebug.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <string>
+#include <QString>
+#include <QtMultimedia>
+//#include <QMediaPlayer>
+#include <QSound>
 
+#define DEFAULT_CONTENT_DIR  "/var/lib/bluedis/downloads/"
 
 namespace Ui {
 class Afficheur;
@@ -21,6 +31,9 @@ public:
     
 public slots :
         void displayImg(QString img_name);
+        void playSound(QString music_file);
+        void displayVideo();
+        void commandVideo();
 
 signals:
       void file_found();
@@ -32,7 +45,6 @@ private:
     QPixmap image;
     QGraphicsPixmapItem *item;
 
-    const QString DEFAULT_IMAGE_DIR="content/";
     FolderWatcher *dir_watcher;
 };
 

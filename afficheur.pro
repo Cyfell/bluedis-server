@@ -5,7 +5,9 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT       += multimediawidgets
+QT       += multimedia
+QT       += widgets
 TARGET = afficheur
 TEMPLATE = app
 

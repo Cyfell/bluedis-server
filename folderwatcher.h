@@ -8,7 +8,7 @@
 #include <qfilesystemwatcher.h>
 #include <qstringlist.h>
 
-
+#define DEFAULT_CONTENT_DIR  "/var/lib/bluedis/downloads/"
 
 
 class FolderWatcher : public QObject
@@ -22,12 +22,12 @@ public slots :
 
 signals :
     QString pictureDetected(QString new_file);
+    QString musicDetected(QString new_file);
 
 private:
     void ActualiseList();
     QString findNewFile(QStringList *oldList);
     QStringList *listFiles;
-    const QString CONTENT_PATH;
     QFileSystemWatcher *watcher;
 
 };
